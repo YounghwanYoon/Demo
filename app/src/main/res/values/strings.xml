@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Demo</string>
+
+    <string name="weather">769eccf378ee31ceda05fb93e8168982</string>
+    <string name="lat">40</string>
+    <string name="lon">75</string>
+</resources>

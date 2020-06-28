@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <integer name="lat">123</integer>
+    <integer name="lon">123</integer>
+</resources>
