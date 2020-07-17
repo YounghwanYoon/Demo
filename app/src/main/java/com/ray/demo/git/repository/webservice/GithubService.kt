@@ -11,16 +11,16 @@ import retrofit2.http.Path
 
 
 //If API key is required.
-const val API_KEY =""
-const val URL = "https://api.github.com"
+private const val API_KEY =""
+private const val URL = "https://api.github.com"
 
 interface GithubService {
 
     @GET("users/{user}/repos")
-    fun listRepos(@Path("user") user:String): Call<List<GithubResponse>>
+    fun getListRepos(@Path("user") user:String): Call<List<GithubResponse>>
 
     @GET("/repositories?since=10&per_page=31")
-    fun listRepos():Call<List<GithubResponse>>
+    fun getListRepos():Call<List<GithubResponse>>
 
     companion object{
         operator fun invoke():GithubService{

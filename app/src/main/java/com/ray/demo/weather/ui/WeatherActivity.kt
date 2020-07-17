@@ -26,7 +26,7 @@ class WeatherActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         fetchData()
-        setContentView(R.layout.activity_weather)
+        //setContentView(R.layout.activity_weather)
     }
 
     init{
