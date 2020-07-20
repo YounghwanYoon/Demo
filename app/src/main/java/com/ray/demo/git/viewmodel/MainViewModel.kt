@@ -14,7 +14,11 @@ import retrofit2.Response
 class MainViewModel: ViewModel(){
     val TAG = "MainViewModel"
 
-    private lateinit var _listofRepoMutable:MutableLiveData<List<GithubResponse>>
+    companion object{
+        lateinit var savedPosition:Integer
+    }
+
+    private var _listofRepoMutable:MutableLiveData<List<GithubResponse>>
     var listofRepoMutable: LiveData<List<GithubResponse>>? = null
     get(){
         return _listofRepoMutable
@@ -50,5 +54,11 @@ class MainViewModel: ViewModel(){
     }
 */
 
+    fun getSelectedData():GithubResponse?{
+        Log.d(TAG, "getSelectedData: ${_listofRepoMutable?.value?.get(savedPosition.toInt())}")
+        Log.d(TAG, "getSelectedData: ${listofRepoMutable?.value?.get(savedPosition.toInt())}")
+
+        return _listofRepoMutable?.value?.get(savedPosition.toInt())
+    }
 
 }
