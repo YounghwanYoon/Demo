@@ -10,6 +10,7 @@ import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.ray.demo.R
 import com.ray.demo.git.repository.data.GithubResponse
 import kotlinx.android.synthetic.main.github_list_each_view.view.*
@@ -20,6 +21,7 @@ class GitListAdapter(val context: Context, val data:List<GithubResponse>): BaseA
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val view:View
         val holder:ViewHolder
+        var options:RequestOptions
 
         if (convertView == null){
             view = LayoutInflater.from(context).inflate(R.layout.github_list_each_view, parent, false)
@@ -34,9 +36,16 @@ class GitListAdapter(val context: Context, val data:List<GithubResponse>): BaseA
             //bind/connect each data to each view
            // val image = BitmapFactory.decodeStream(URL(data[position].owner.avatarUrl).openConnection().getInputStream())
             // holder.userImage.setImageBitmap(image)
+            options = RequestOptions()
+                .centerCrop()
+                .placeholder(R.mipmap.ic_launcher_round)
+                .error(R.mipmap.ic_launcher_round)
+
+
             Glide.with(context)
                 .load(data[position].owner.avatarUrl)
-                .into(holder.userImage);
+                .apply(options)
+                .into(holder.userImage)
 
             holder.userID.text = data[position].id.toString()
             holder.userName.text = data[position].fullName

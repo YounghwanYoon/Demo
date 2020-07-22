@@ -1,6 +1,7 @@
 package com.ray.demo.git.repository.webservice
 
 import com.ray.demo.git.repository.data.GithubResponse
+import kotlinx.coroutines.Deferred
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Call
@@ -8,6 +9,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 
 //If API key is required.
@@ -19,9 +21,30 @@ interface GithubService {
     @GET("users/{user}/repos")
     fun getListRepos(@Path("user") user:String): Call<List<GithubResponse>>
 
-    @GET("/repositories?since=10&per_page=31")
+    @GET("/repositories?since=100&per_page=50")
     fun getListRepos():Call<List<GithubResponse>>
 
+    //Coroutine Deferred Retrun Type
+    @GET("/repositories")
+    suspend fun getListReposForCoroutineAsync(
+        @Query("since") starting:String,
+        @Query("per_page") perPage:String
+    ):List<GithubResponse>
+
+
+    //Non-async structure
+    /*companion object{
+        operator fun invoke():GithubService{
+            return Retrofit.Builder()
+                .baseUrl(URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+                .create(GithubService::class.java)
+        }
+    }
+     */
+
+    //implemented Coroutine/non-async structure
     companion object{
         operator fun invoke():GithubService{
             return Retrofit.Builder()
@@ -33,12 +56,13 @@ interface GithubService {
     }
 
 
+
     /*
         When need to add API key to request, instead specifying each with @Query
         do below.
         Also, need to add addCallAdapterFactory for Coroutine when listRepo() return Deferred (Coroutine) object.
      */
-    /*
+/*
     companion object{
         operator fun invoke():GithubService{
             val requestInterceptor = Interceptor{ chain->
@@ -69,6 +93,8 @@ interface GithubService {
     }
 
      */
+
+
 
 }
 

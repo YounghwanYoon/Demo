@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.ray.demo.git.repository.data.GithubResponse
 import com.ray.demo.git.repository.webservice.GithubService
+import kotlinx.coroutines.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -37,6 +38,17 @@ object Repository {
             }
         })
         return mutableGitData
+    }
+
+    suspend fun fetchListOfGitDataAsCoroutine(){
+        runBlocking{
+
+            val scope = CoroutineScope(context = Dispatchers.IO)
+            scope.launch{
+                GithubService().getListReposForCoroutineAsync("11","50")
+            }
+        }
+
     }
 
 
